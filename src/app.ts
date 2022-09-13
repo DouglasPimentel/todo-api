@@ -31,6 +31,6 @@ router.post("/users", UserController.create);
 
 // todo api routes
 router.get("/todos", TodoController.getAll);
-router.post("/todos", TodoController.create);
+router.post("/todos/:id", TodoController.create);
 
 export default app;

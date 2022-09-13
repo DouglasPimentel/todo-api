@@ -17,7 +17,8 @@ const getAll = async (ctx: Koa.ParameterizedContext) => {
 };
 
 const create = async (ctx: Koa.ParameterizedContext) => {
-  const { name, description, status, userId } = ctx.request.body;
+  const id = ctx.params.id;
+  const { name, description, status } = ctx.request.body;
 
   const todoExists = await TodoModel.findOne({ name });
 
@@ -26,6 +27,7 @@ const create = async (ctx: Koa.ParameterizedContext) => {
     ctx.body = {
       message: "Task already registered",
     };
+    return;
   }
 
   try {
@@ -33,7 +35,7 @@ const create = async (ctx: Koa.ParameterizedContext) => {
       name,
       description,
       status,
-      userId,
+      userId: id,
     }).save();
 
     ctx.status = 201;
